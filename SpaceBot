@@ -1,0 +1,113 @@
+import json
+from ibm_watson import VisualRecognitionV3
+from ibm_cloud_sdk_core.authenticators import IAMAuthenticator
+
+authenticator = IAMAuthenticator('Wu2_wjl2bdSsTTTzOY4MikxmlWYYw_muBZWRXJ6770OI')
+visual_recognition = VisualRecognitionV3(
+    version='2018-03-19',
+    authenticator=authenticator
+)
+
+end=0
+
+visual_recognition.set_service_url('https://api.us-south.visual-recognition.watson.cloud.ibm.com/instances/b5cccc8c-3d4b-4b77-b681-47428f1f2d14')
+
+print("Welcome!")
+while(end==0):
+    print("")
+    print("I am your virtual assistant to help you identify spatial phenomena! At the moment i can identify comets, asteroids, gamma ray burst, supernovas and exoplanets")
+    print("Press:")
+    print("- 0 to identify a space phenomenon")
+    print("- 1 to exit")
+    option=input()
+    if option=="0":
+        print("Insert the file name with its extension! (make sure it's in the same directory as me...)")
+        image=input()
+
+        with open('./'+image, 'rb') as images_file:
+            classes = visual_recognition.classify(
+                images_file=images_file,
+                threshold='0.7',
+                owners=["me"]).get_result()
+            #print(json.dumps(classes, indent=2))
+            if "Gamma ray burst" in json.dumps(classes, indent=2)or"Asteroide" in json.dumps(classes, indent=2)or"comet" in json.dumps(classes, indent=2)or"Exoplanet" in json.dumps(classes, indent=2)or"Supernova" in json.dumps(classes, indent=2):
+                if "Gamma ray burst" in json.dumps(classes, indent=2):
+                    print("this phenomenon is probably a gamma ray burst!")
+                    print("")
+                    print("Do you want to access the information?")
+                    print("- 0 to access the information")
+                    print("- 1 to exit")
+                    option2=input()
+                    if option2=="0":
+                        print("Gamma-ray bursts (GRBs) are short-lived bursts of gamma-ray light, the most energetic form of light. Lasting anywhere from a few milliseconds to several minutes, GRBs shine hundreds of")
+                        print("times brighter than a typical supernova and about a million trillion times as bright as the Sun. When a GRB erupts, it is briefly the brightest source of cosmic gamma-ray photons in the observable Universe.")
+                        print("")
+                        print("Long-duration bursts last anywhere from 2 seconds to a few hundreds of seconds (several minutes), with an average time of about 30 seconds. They are associated with the deaths of massive stars in supernovas; though not every supernova produces a gamma-ray burst.")
+                        print("Access https://www.google.com/search?q=traductor&oq=tr&aqs=chrome.0.69i59l2j69i57j69i59j69i60l2j5l2.410j0j4&sourceid=chrome&ie=UTF-8 for more information")
+                else:
+                    if "Asteroid" in json.dumps(classes, indent=2):
+                        print("this phenomenon is probably an asteroid!")
+                        print("")
+                        print("Do you want to access the information?")
+                        print("- 0 to acces the information")
+                        print("- 1 to exit")
+                        option2=input()
+                        if option2=="0":
+                            print("Asteroids, sometimes called minor planets, are rocky, airless remnants left over from the early formation of our solar system about 4.6 billion years ago.")
+                            print("The current known asteroid count is: 995,372.")
+                            print("")
+                            print("DO YOU KNOW?")
+                            print("The total mass of all the asteroids in the main asteroid belt combined is less than that of Earth's Moon.")
+                            print("")
+                            print("Access https://solarsystem.nasa.gov/asteroids-comets-and-meteors/asteroids/overview/?page=0&per_page=40&order=name+asc&search=&condition_1=101%3Aparent_id&condition_2=asteroid%3Abody_type%3Ailike for more information")                    
+                    else:
+                        if "comet" in json.dumps(classes, indent=2):
+                            print("this phenomenon is probably a comet!")
+                            print("")
+                            print("Do you want to access the information?")
+                            print("- 0 to acces the information")
+                            print("- 1 to exit")
+                            option2=input()
+                            if option2=="0":
+                                print("Comets are frozen leftovers from the formation of the solar system composed of dust, rock and ices. They range from a few miles to tens of miles wide, but as they orbit closer to the sun, they heat up and spew gases and dust into a glowing head that can be larger than a planet. This material forms a tail that stretches millions of miles.")
+                                print("The current number of known comets is: 3,679")
+                                print("DO YOU KNOW?")
+                                print("Comets orbit the Sun just like planets and asteroids do, except a comet usually has a very elongated orbit.")
+                                print("")
+                                print("Access https://solarsystem.nasa.gov/asteroids-comets-and-meteors/comets/overview/?page=0&per_page=40&order=name+asc&search=&condition_1=102%3Aparent_id&condition_2=comet%3Abody_type%3Ailike for more information")
+                        else:
+                            if "Exoplanet" in json.dumps(classes, indent=2):
+                                print("this phenomenon is probably an exoplanet!")
+                                print("")
+                                print("Do you want to access the information?")
+                                print("- 0 to acces the information")
+                                print("- 1 to exit")
+                                option2=input()
+                                if option2=="0":
+                                    print("All of the planets in our solar system orbit around the Sun. Planets that orbit around other stars are called exoplanets.")
+                                    print("Exoplanets are very hard to see directly with telescopes. They are hidden by the bright glare of the stars they orbit.")
+                                    print("So, astronomers use other ways to detect and study these distant planets. They search for exoplanets by looking at the effects these planets have on the stars they orbit.")
+                                    print("Access https://spaceplace.nasa.gov/all-about-exoplanets/en/ for more information")
+                            else:
+                                if "Supernova" in json.dumps(classes, indent=2):
+                                    print("this phenomenon is probably a supernova!")
+                                    print("")
+                                    print("Do you want to access the information?")
+                                    print("- 0 to acces the information")
+                                    print("- 1 to exit")
+                                    option2=input()
+                                    if option2=="0":
+                                        print("A supernova is the biggest explosion that humans have ever seen. Each blast is the extremely bright, super-powerful explosion of a star.")
+                                        print("")
+                                        print("One type of supernova is caused by the “last hurrah” of a dying massive star. This happens when a star at least five times the mass of our sun goes out with a fantastic bang!")
+                                        print("")
+                                        print("HOW BRIGHT ARE SUPERNOVAS?")
+                                        print("These spectacular events can be so bright that they outshine their entire galaxies for a few days or even months. They can be seen across the universe.")
+                                        print("")
+                                        print("Access https://spaceplace.nasa.gov/supernova/en/ for more information")
+            else:
+                 print("I cannot give you the information because I couldn't recognize any phenomenon, please, enter a more remarkable image")
+    else:
+        if option=="1":
+            end=1
+            print("See you next time!")
